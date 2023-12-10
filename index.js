@@ -4,7 +4,6 @@ const { Pool } = require('pg');
 const http = require("http");
 const server = new http.Server(app);
 const path = require('path');
-const cors = require('cors');
 
 require('dotenv').config()
 
