@@ -806,7 +806,7 @@ nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
   @media screen and (max-width: 479px) {
     #parallax-world-of-ugg .block { padding: 30px 15px; width:100vw;}
     .row-text { display: block;}
-    .row-text > i { margin-bottom: 10px}
+    .row-text > i { margin-bottom: 10px; margin-left: 35%;}
     .row-game{display: inline-flex;}
     .row-game >.section-header{  margin-left: 50px;}
     .explore-content{margin-left: 10%;}
