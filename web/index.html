@@ -51,7 +51,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
+	<script src="https://cdn.socket.io/4.7.2/socket.io.min.js" integrity="sha384-mZLF4UVrpi/QTWPA7BjNPEnkIfRFn4ZEO3Qt/HFklTJBj/gBOV8G3HcKn4NfQblz" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -76,9 +76,9 @@
 			<span class="close">&times;</span> </br>
 			</br>
 
-			<div class="row-modal">
+			<div class="row-modal row-modal-all">
 				<form class="form-comment" action="javascript:void(0);">
-					<div class="row-modal">
+					<div class="row-modal title-modal-row">
 						<p>Avalie <label id="place-modal" style="font-weight: 400;"></label></p>
 					</div>
 					<div class="row-modal">
@@ -237,9 +237,15 @@
 					placeName = "Parque Vaca Brava";
 					break;
 			}
+		
+            createListComments(id_place);
+			document.getElementById('place-modal').textContent = placeName;
+		}
+	 
+        function createListComments(id){
 			const list_itens_div = document.getElementById("list-itens-comment")
-			list_itens_div.innerHTML = '';
-			axios.get("/comments/read/" + id).then((res) => {
+			axios.get("/comments/read/" + id).then((res) => {					
+				list_itens_div.innerHTML = '';
 				list_comments = res.data;
 				list_comments.forEach((comment) => {
 					list_itens_div.insertAdjacentHTML('beforeend',
@@ -256,15 +262,14 @@
 
 				})
 			})
-
-			document.getElementById('place-modal').textContent = placeName;
 		}
-	 
+
 		function getColorCodeByNote(note){
-          return note > 3 &&  note <4?"#70a9ff" : note > 4 ? "#00c61c" : "#ff7a40";
+          return note >= 3 &&  note < 4?"#70a9ff" : note >= 4 ? "#00c61c" : "#ff7a40";
 		}
 
-		axios.get("/places/statistics").then((res) => {
+		function updateNotes(){
+            axios.get("/places/statistics").then((res) => {
 			places_data = res.data;
 			places_data.forEach((place) => {
 				const notes = document.getElementsByClassName("notes");
@@ -273,7 +278,13 @@
 				document.getElementsByClassName("number_comments")[place.id_place - 1].textContent = place.number_comments + " Avaliações";
 			})
 		})
-
+		}
+		updateNotes();
+		const socket = io();
+      socket.on('news', function (data) {
+        updateNotes();
+	   id_place != 0 ? createListComments(id_place):null;
+	});
 
 		// When the user clicks on <span> (x), close the modal
 		span.onclick = function () {
@@ -300,6 +311,7 @@
 			axios.post('/comments/add', data)
 				.then(function (response) {
 					cleanInput();
+					socket.emit("new_post",".")
 				})
 		}
 		// When the user clicks anywhere outside of the modal, close it
@@ -319,8 +331,6 @@
 			});
 		});
 	</script>
-
-
 	<!--explore end -->
 	<!--info start -->
 	<section>
@@ -364,7 +374,7 @@
 						</p>
 						<i class="flaticon-building floated" style="font-size: 3.6rem; margin-left: 25px;"></i>
 					</div>
-					<p class="line-break" style="margin-top: -20px;"></p>
+					<p class="line-break"></p>
 				</div>
 			</section>
 
@@ -494,7 +504,11 @@
 				<div class="row">
 					<div class="col-sm-5">
 						<p>
-							&copy;Feito com ❤ em goiânia
+							&copy;Feito com ❤ em goiânia </br> 
+							<a class="github-link" href="https://github.com/joaovittor-22" target="_blank" style="text-transform:none;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+								<path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8"/>
+							  </svg> Veja o código
+							</a>
 						</p><!--/p-->
 					</div>
 				</div>

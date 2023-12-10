@@ -4,18 +4,15 @@ const { Pool } = require('pg');
 const http = require("http");
 const server = new http.Server(app);
 const path = require('path');
-const { send } = require('process');
+const cors = require('cors');
 
 require('dotenv').config()
 
+//app.use(cors());
 app.use(express.json());
 app.use(express.static(__dirname + '/web'));
 const io = require('socket.io')(server, {
-    transports: ['websocket'],
   maxHttpBufferSize: 5e8,
-    cors: {
-      origin: "*",
-    },
   });
 
 var config = {
@@ -114,16 +111,13 @@ app.get('/places/statistics', (req, res) => {
 
 
 io.on('connection', (socket) => {
-    socket.on('new_comment', () => {
-       socket.broadcast.emit("comments", "nova mensaegm");
-    });
+    socket.on('new_post', () => {
+        console.log("teste")
+        socket.emit("news", "update");
+     });
   });
 
 server.listen(process.env.PORT || 3000, function() {
     console.log('App listening...')
   });
-  
-  //tem cadastro ? se nao adiciona 
-  // recebeu o token continua  usando até a proxima seção
-  // rota para retornar comentários
   
