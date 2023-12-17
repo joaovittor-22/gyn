@@ -1039,6 +1039,9 @@ font-size: 2.5em;
 /* Section - Parallax */
 /**************************/
 #parallax-world-of-ugg .parallax-one {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding-top: 200px;
     padding-bottom: 200px;
     overflow: hidden;
@@ -1086,6 +1089,13 @@ font-size: 2.5em;
     background-position: center center;
     height: 80vh;
 }
+
+.parallax-three {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+}
+
 /* Extras */
 /**************************/
 #parallax-world-of-ugg .line-break {border-bottom:2px solid #d0d0d0; width: 150px; margin:0 auto;}
