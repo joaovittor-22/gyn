@@ -62,7 +62,7 @@ var modal = document.getElementById("myModal");
 				div_places.insertAdjacentHTML('beforeend', "<div class='col-md-4 col-sm-6'>"+	
 						"<div class='single-explore-item'>"+
 							"<div class='single-explore-img'>"+
-						"<img src= 'http://localhost:3000/api/midia/"+ place.image+ "'alt='explore image'/>"+
+						"<img src= '/api/midia/"+ place.image+ "'alt='explore image'/>"+
 							"</div>"+
 							"<div class='single-explore-txt bg-theme-2'>"+
                             "<h2><a href='#'>"+place.name+"</a></h2>"+
