@@ -7,17 +7,17 @@ var modal = document.getElementById("myModal");
 		var comment_input = document.getElementById('comment-input');
 		var note_input = document.getElementById('note-place');
 		var name_input = document.getElementById('name-input');
-
+        var id_place = -1;
 
 		function openModal(id_place) {
             const list_itens_div = document.getElementById("list-itens-comment");
+            id_place = id_place;
             list_itens_div.innerHTML = '';
             axios.get("/api/places/data/"+id_place).then((res)=>{
             place_data = res.data;
             createListComments(id_place);
 		    document.getElementById('place-modal').textContent = place_data.name;            
             modal.style.display = "block";
-
             })
 		}
 
