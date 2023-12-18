@@ -4,9 +4,9 @@ const { Pool } = require('pg');
 const http = require("http");
 const server = new http.Server(app);
 const path = require('path');
-const fs = require('fs')
-const multer  = require('multer')
-
+const fs = require('fs');
+const multer  = require('multer');
+const cors = require('cors');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -24,7 +24,7 @@ const upload = multer({ storage: storage })
 
 require('dotenv').config()
 
-//app.use(cors());
+app.use(cors());
 app.use(express.json());
 app.use(express.static(__dirname + '/web'));
 const io = require('socket.io')(server, {

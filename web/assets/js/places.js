@@ -9,13 +9,13 @@ var modal = document.getElementById("myModal");
 		var name_input = document.getElementById('name-input');
         var id_place = -1;
 
-		function openModal(id_place) {
+		function openModal(id_place_local) {
             const list_itens_div = document.getElementById("list-itens-comment");
-            id_place = id_place;
+            id_place = id_place_local;
             list_itens_div.innerHTML = '';
-            axios.get("/api/places/data/"+id_place).then((res)=>{
+            axios.get("/api/places/data/"+id_place_local).then((res)=>{
             place_data = res.data;
-            createListComments(id_place);
+            createListComments(id_place_local);
 		    document.getElementById('place-modal').textContent = place_data.name;            
             modal.style.display = "block";
             })
