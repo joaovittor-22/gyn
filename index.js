@@ -97,9 +97,7 @@ app.post('/api/comments/add', (req, res) => {
              res.send({result:"novo valor adicionado"})
         }
     });
-    }catch(e){
-     //tratativa de erros
-    }
+    }catch(e){}
 })
 
 app.post('/api/places/add', upload.single('image'), (req, res) => {
@@ -121,9 +119,7 @@ app.post('/api/places/add', upload.single('image'), (req, res) => {
              res.send({result:"novo local adicionado"})
         }
     });  
-    }catch(e){
-     //tratativa de erros
-    }
+    }catch(e){ }
 })
 
 app.put('/api/places/update/:id', upload.single('image'), (req, res) => {
@@ -146,9 +142,7 @@ app.put('/api/places/update/:id', upload.single('image'), (req, res) => {
              res.sendStatus(200)
         }
     });
-    }catch(e){
-     //tratativa de erros
-    }
+    }catch(e){}
 })
 app.get('/api/places/list', (req, res) => {
     const textSQL = 'SELECT * FROM places'
@@ -164,9 +158,7 @@ app.get('/api/places/list', (req, res) => {
              res.send(resQuery.rows)
         }
     });
-    }catch(e){
-     //tratativa de erros
-    }
+    }catch(e){}
 })
 
 app.get('/api/places/data/:id_place', (req, res) => {
@@ -186,9 +178,7 @@ app.get('/api/places/data/:id_place', (req, res) => {
              res.send(resQuery.rows[0] ?? null)
         }
     });
-    }catch(e){
-     //tratativa de erros
-    }
+    }catch(e){}
 })
 
 app.delete('/api/places/delete/:id_place', (req, res) => {
@@ -208,9 +198,7 @@ app.delete('/api/places/delete/:id_place', (req, res) => {
          res.send({result:"Deletado com sucesso"})
         }
     });
-    }catch(e){
-     //tratativa de erros
-    }
+    }catch(e){}
 })
 
 app.get('/api/midia/:name_midia', (req, res) => {
