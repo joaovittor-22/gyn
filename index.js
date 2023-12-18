@@ -4,7 +4,6 @@ const { Pool } = require('pg');
 const http = require("http");
 const server = new http.Server(app);
 const path = require('path');
-const fs = require('fs');
 const multer  = require('multer');
 const cors = require('cors');
 
