@@ -189,7 +189,6 @@ app.get('/api/midia/:name_midia', (req, res) => {
         res.sendFile(path)
     }catch(e){
      //tratativa de erros
-     console.log(e)
      res.send(500);
     }
 })
