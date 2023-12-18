@@ -86,9 +86,6 @@ app.post('/api/comments/add', (req, res) => {
     try {
      pool.query(textSQL, values, function(err, resQuery) {
         if(err) {
-            const textSQLUpdate = 'DROP TABLE comments'
-            pool.query(textSQLUpdate, function(err, resQuery) {
-            })
              console.error('error running query', err);
              res.sendStatus(500)
         }
@@ -108,9 +105,6 @@ app.post('/api/places/add', upload.single('image'), (req, res) => {
     try {
      pool.query(textSQL, values, function(err, resQuery) {
         if(err) {
-          const textSQLUpdate = 'DROP TABLE places'
-            pool.query(textSQLUpdate, function(err, resQuery) {
-            })
              console.error('error running query', err);
              res.sendStatus(500)
         }
@@ -131,9 +125,6 @@ app.put('/api/places/update/:id', upload.single('image'), (req, res) => {
     try {
      pool.query(textSQL, values, function(err, resQuery) {
         if(err) {
-          const textSQLUpdate = 'DROP TABLE places'
-            pool.query(textSQLUpdate, function(err, resQuery) {
-            })
              console.error('error running query', err);
              res.sendStatus(500)
         }
@@ -148,9 +139,6 @@ app.get('/api/places/list', (req, res) => {
     try {
      pool.query(textSQL, function(err, resQuery) {
         if(err) {
-            const textSQLUpdate = 'DROP TABLE places'
-            pool.query(textSQLUpdate, function(err, resQuery) {
-            })
              res.sendStatus(500)
         }
         else {
@@ -168,9 +156,6 @@ app.get('/api/places/data/:id_place', (req, res) => {
     try {
      pool.query(textSQL, values, function(err, resQuery) {
         if(err) {
-            const textSQLUpdate = 'DROP TABLE places'
-            pool.query(textSQLUpdate, function(err, resQuery) {
-            })
              res.sendStatus(500)
         }
         else {
@@ -187,9 +172,6 @@ app.delete('/api/places/delete/:id_place', (req, res) => {
     try {
      pool.query(textSQL, values, function(err, resQuery) {
         if(err) {
-            const textSQLUpdate = 'DROP TABLE places'
-            pool.query(textSQLUpdate, function(err, resQuery) {
-            })
              console.error('error running query', err);
              res.sendStatus(500)
         }
@@ -244,7 +226,6 @@ app.get('/api/places/statistics', (req, res) => {
 
 io.on('connection', (socket) => {
     socket.on('new_post', () => {
-        console.log("teste")
         socket.emit("news", "update");
      });
   });
